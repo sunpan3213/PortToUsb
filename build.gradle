@@ -1,0 +1,33 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        minSdkVersion 12
+        targetSdkVersion 26
+    }
+
+
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+
+task makeJar(type: Copy){
+    delete 'build/zkxl_v1.0.0.jar'
+
+    from('build/intermediates/packaged-classes/release/')
+
+    into('build/')
+
+    include('classes.jar')
+
+    rename('classes.jar','zkxl_v1.0.0.jar')
+}
+
+makeJar.dependsOn(build)
